@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "scale": {
+      "type": "object",
+      "properties": {
+        "max_instance_count" : {
+          "type": "integer"
+        },
+        "min_instance_count" : {
+          "type": "integer"
+        },
+        "min_memory" : {
+          "type": "integer"
+        },
+        "min_cpu" : {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_instance_count",
+        "min_instance_count",
+        "min_cpu",
+        "min_memory"
+      ]
+    }
+  },
+  "id": "/"
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "dendrite root schema",
+  "description": "a schema describing individual dendrite file",
+  "definitions": {
+    "subcomponent": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\A[0-9a-z]+\\z"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "tomcat",
+            "mysql"
+          ]
+        },
+        "deploy": {
+          "$ref": "service_node_schemas/deploy.jsonschema#/definitions/deploy"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "service_node_schemas/port.jsonschema#/definitions/port"
+          }
+        },
+        "scale": {
+          "$ref": "service_node_schemas/scale.jsonschema#/definitions/scale"
+        },
+        "default_servers": {
+          "type": "array",
+          "items": {
+            "$ref": "service_node_schemas/default_server.jsonschema#/definitions/default_server"
+          }
+        },
+        "metadata": {
+          "$ref": "service_node_schemas/metadata.jsonschema#/definitions/metadata"
+        }
+      },
+      "required": [
+        "name", "type", "deploy", "ports", "scale", "default_servers", "metadata"
+      ],
+      "dependencies": {
+        "ports": {
+          "properties": {
+            "type": {
+                "enum": ["mysql"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "id": "/"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "telemetry": {
+      "type": "object",
+      "properties": {
+        "health_url" : {
+          "type": "string",
+          "minLength": 1,
+          "format": "uri"
+        },
+        "notification_emails": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "required": [
+        "health_url",
+        "notification_emails"
+      ]
+    }
+  },
+  "id": "/"
+}

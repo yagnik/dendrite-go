@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "repository" : {
+          "type": "string",
+          "format": "uri"
+        },
+        "package": {
+          "type": "string",
+          "pattern": "\\A[a-z]+\\z"
+        }
+      },
+      "required": [
+        "package"
+      ]
+    }
+  },
+  "id": "/"
+}

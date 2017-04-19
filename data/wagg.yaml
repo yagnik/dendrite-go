@@ -1,0 +1,108 @@
+---
+organization: sd
+component: wagg
+lead_email: lead@snapdeal.com
+team_email: team@snapdeal.com
+subcomponents:
+- name: admin
+  type: tomcat
+  deploy:
+    repository: gitlab.snapdeal.com/cocofs/wagg
+    package: wagg_admin
+  ports:
+    loadbalancer_port: 9420
+    service_port: 8080
+  scale:
+    min_instance_count: 2
+    max_instance_count: 5
+    min_cpu: 3
+    min_memory: 6
+  users:
+    prd:
+    - brijesh.meshiya
+    - suryansh.bhadouria
+    - ankur.garg
+    - shiv.suthar
+    - raman.sethi
+    - harender.bhardwaj
+    - aggarwal.piyush
+    - satyendra.dubey
+    - disha.chauhan
+    - manish.negi
+    - jain.anuj
+    stg:
+    - brijesh.meshiya
+    - suryansh.bhadouria
+    - ankur.garg
+    - shiv.suthar
+    - raman.sethi
+    - harender.bhardwaj
+    - aggarwal.piyush
+    - satyendra.dubey
+    - disha.chauhan
+    - manish.negi
+    - jain.anuj
+  dependencies:
+  - component: catalog
+    subcomponent: adminweb
+    latency: 10
+    identifier: product_catalog_web_service_url
+  - component: cocofs
+    subcomponent: servicestier2packman
+    latency: 10
+    identifier: cocofs_web_service_url
+  - component: ipms
+    subcomponent: web
+    latency: 10
+    identifier: ipms_web_service_url
+  - component: shipping
+    subcomponent: external
+    latency: 10
+    identifier: shipping_web_service_url
+  - component: thirdparty
+    subcomponent: auctionsunicommercewebservice
+    latency: 10
+    identifier: unicommerce_service_url
+  - component: wagg
+    subcomponent: mysqlwagg
+    latency: 10
+    identifier: spring_datasource_url
+  - component: cocofs
+    subcomponent: activemqcocofs
+    latency: 10
+    identifier: queue_broker_url
+  default_servers:
+  - host: 20.0.0.96
+    port: 10340
+    environment: stg
+  - host: wagg-admin-1752247397.ap-southeast-1.elb.amazonaws.com
+    port: 80
+    environment: prd
+  metadata:
+    databag: wagg-admin
+    java_version: 8
+    build_path: WaggAdminWeb
+- name: mysqlwagg
+  type: mysql
+  deploy:
+    repository: gitlab.com/mysql
+    package: wagg-mysqlwagg
+  ports:
+    service_port: 3306
+    loadbalancer_port: 9422
+  scale:
+    min_instance_count: 1
+    max_instance_count: 1
+    min_cpu: 3
+    min_memory: 6
+  default_servers:
+  - host: 20.0.0.65
+    port: 3307
+    environment: stg
+  - host: 30.0.5.240
+    port: 3306
+    environment: prd
+  metadata:
+    database: wagg
+    data_size: 300
+    backup_folder: WAGG

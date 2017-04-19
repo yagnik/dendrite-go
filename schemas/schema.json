@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "dendrite root schema",
+  "description": "a schema describing individual dendrite file",
+  "uniqueness": {},
+  "properties": {
+    "organization": {
+      "type": "string",
+      "minLength": 1,
+      "title": "organization name",
+      "default": "sd",
+      "enum": [
+        "sd"
+      ],
+      "pattern": "\\A[a-z]+\\z"
+    },
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "title": "component name",
+      "pattern": "\\A[0-9a-z]+\\z"
+    },
+    "lead_email": {
+      "type": "string",
+      "minLength": 1,
+      "title": "component lead's email",
+      "default": "lead@organization.com",
+      "format": "email"
+    },
+    "team_email": {
+      "type": "string",
+      "minLength": 1,
+      "title": "email of the whole team that handles this component",
+      "default": "team@organization.com",
+      "format": "email"
+    },
+    "subcomponents": {
+      "type": "array",
+      "title": "subcomponents",
+      "items": {"$ref": "def.json#/definitions/subcomponent"}
+    }
+  },
+  "id": "/",
+  "required": [
+    "organization"
+  ]
+}
